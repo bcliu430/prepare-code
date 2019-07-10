@@ -21,8 +21,10 @@ function! s:gen_prepare_code_by_suffix(suffix)
         call <sid>gen_c_code()
     elseif a:suffix == "go"
         call <sid>gen_Go_code()
-    elseif a:suffix == "h" || a:suffix == "hpp"
+    elseif a:suffix == "hpp"
         call <sid>gen_cpp_header_code()
+    elseif a:suffix == "h" 
+        call <sid>gen_c_header_code()
     elseif a:suffix == "cpp" || a:suffix == "cc"
         call <sid>gen_cpp_implement_code()
     endif
@@ -53,8 +55,16 @@ function! s:gen_c_code()
 endfunction
 
 " 生成cpp头文件代码
-function! s:gen_cpp_header_code()
+function! s:gen_c_header_code()
     let lines = <sid>get_prepare_code("h")
+    let target = prepare#util#get_current_file_base_name()
+    let texts = prepare#util#replace_texts(lines, "snippet", target)
+    call prepare#util#write_texts(texts)
+endfunction
+
+" 生成cpp头文件代码
+function! s:gen_cpp_header_code()
+    let lines = <sid>get_prepare_code("hpp")
     let target = prepare#util#get_current_file_base_name()
     let texts = prepare#util#replace_texts(lines, "snippet", target)
     call prepare#util#write_texts(texts)
