@@ -1,11 +1,5 @@
-#pragma once
+#ifndef SNIPPET_H
+#define SNIPPET_H
 
-class snippet
-{
-public:
-    snippet() {}
-    ~snippet() {}
 
-private:
-
-};
+#endif
